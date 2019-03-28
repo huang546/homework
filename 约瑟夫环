@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+int Num[7]={1,2,3,4,5,6,7};
+int KeyW[7]={3,1,7,2,4,8,4};
+typedef struct LNode{//定义循环链表
+    int num;
+    int keyword;
+    struct LNode * next;
+}LNode,*LinkList;
+void Joseph(LinkList p,int m,int x)//x是人数
+{
+    LinkList q;
+    int i;
+    if(x==0) return;
+    q=p;
+    m%=x;
+    if(m==0) m=x;
+    for(i=1;i<=m;++i)//找到第m个人 p指向要删除的人的前一人 q指向要删除的人
+    {
+        p=q;
+        q=p->next;
+    }
+    p->next=q->next;//删除q
+    i=q->keyword;
+    printf("%d ",q->num);
+    free(q);
+    Joseph(p,i,x-1);
+}
+void main()
+{
+    int i,m;
+    LinkList Lhead,p,q;//Lhead指向头，p指向尾指针，q指向新建指针
+    Lhead=(LinkList)malloc(sizeof(LNode));
+    Lhead->num=Num[0];
+    Lhead->keyword=KeyW[0];
+    Lhead->next=NULL;
+    p=Lhead;
+    for(i=1;i<7;i++){
+        if(!(q=(LinkList)malloc(sizeof(LNode)))) return;
+        q->num=Num[i];
+        q->keyword=KeyW[i];
+        p->next=q;
+        p=q;
+    }
+    p->next=Lhead;//构造循环链表
+    printf("请输入m :\n");
+    scanf("%d",&m);
+    printf("输出的序号是：\n");
+    Joseph(p,m,7);
+}
