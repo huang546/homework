@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+int b[10];
+int a[10];
+int j;
+struct SeqStack
+{
+    int a[10];   // 存储元素的数组
+    int Top;       //栈顶指针
+}SeqStack;
+int Pop(struct SeqStack* L)
+{
+    if(L->Top == 0)
+    {
+        return 0;
+    }
+    printf("%d ",L->a[--L->Top]);
+
+    return 1;
+}
+int Push(struct SeqStack* L, int e)
+{
+    if(L->Top== 9)
+    {
+        return 0;
+    }
+    L->a[L->Top++] = e;
+    return 1;
+}
+void f(int i,int t,int m,int n){
+if(n==t&&m==0){
+        for(j=0;j<t;j++)
+			{printf("%d",a[j]);}
+             printf("\n");}
+ if (m>=1){
+a[n]=b[m-1];
+f(i,t,m-1,n+1);
+}
+ if(i<=t)
+ {
+     int x;
+     x=b[m];
+     b[m]=i;
+     f(i+1,t,m+1,n);
+     b[m]=x;
+ }
+}
+
+ void main()
+{
+ f(1,5,0,0);
+}
